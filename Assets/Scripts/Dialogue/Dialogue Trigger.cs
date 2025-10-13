@@ -34,6 +34,7 @@ public class NewBehaviourScript : MonoBehaviour
             visualCue.SetActive(true);
             if (InputManager.GetInstance().GetInteractPressed())
             {
+                Debug.Log("i pressed");
                 Debug.Log(inkJSON.text);
             }
         }
