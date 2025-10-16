@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// This script acts as a single point for all other scripts to get
+// the current input from. It uses Unity's new Input System and
+// functions should be mapped to their corresponding controls
+// using a PlayerInput component with Unity Events.
+
 // Script for getting player input
 // Tracks button presses
 // Based off the same script by Shaped by Rain Studios 
@@ -11,14 +16,12 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private Vector2 moveDirection = Vector2.zero;
-    //private bool jumpPressed = false;
+    private bool jumpPressed = false;
     private bool interactPressed = false;
     private bool submitPressed = false;
 
     private static InputManager instance;
 
-    // Check that there's only one input manager
-    // It's a singleton so having more than one breaks stuff
     private void Awake()
     {
         if (instance != null)
@@ -28,37 +31,42 @@ public class InputManager : MonoBehaviour
         instance = this;
     }
 
-    // Instance of the class
     public static InputManager GetInstance()
     {
         return instance;
     }
 
-    //public void MovePressed(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //    {
-    //        moveDirection = context.ReadValue<Vector2>();
-    //    }
-    //    else if (context.canceled)
-    //    {
-    //        moveDirection = context.ReadValue<Vector2>();
-    //    }
-    //}
+    // Likely don't need
+    // Moving input manager instead of player for some reason
+    public void MovePressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            moveDirection = context.ReadValue<Vector2>();
+        }
+        else if (context.canceled)
+        {
+            moveDirection = context.ReadValue<Vector2>();
+        }
+    }
 
-    //public void JumpPressed(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //    {
-    //        jumpPressed = true;
-    //    }
-    //    else if (context.canceled)
-    //    {
-    //        jumpPressed = false;
-    //    }
-    //}
+    // Remove later
+    public void JumpPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            jumpPressed = true;
+        }
+        else if (context.canceled)
+        {
+            jumpPressed = false;
+        }
+    }
 
-    // Stuff happens when player interacts
+    // KEEP THIS!
+    // When the player presses the interact button (currently "i"
+    // but may change to "e")
+    // It makes something happen onscreen
     public void InteractButtonPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -71,7 +79,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    // Player submits input
+    // KEEP THIS!
+    // When the player presses the interact button (currently "i"
+    // but may change to "e")
+    // It makes something happen onscreen
+    // Will use for dialogue progressing and branched choices
     public void SubmitPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -84,22 +96,27 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    //public Vector2 GetMoveDirection()
-    //{
-    //    return moveDirection;
-    //}
+
+    // Probably remove
+    public Vector2 GetMoveDirection()
+    {
+        return moveDirection;
+    }
 
     // for any of the below 'Get' methods, if we're getting it then we're also using it,
     // which means we should set it to false so that it can't be used again until actually
     // pressed again.
 
-    //public bool GetJumpPressed()
-    //{
-    //    bool result = jumpPressed;
-    //    jumpPressed = false;
-    //    return result;
-    //}
+    // Likely won't need
+    public bool GetJumpPressed()
+    {
+        bool result = jumpPressed;
+        jumpPressed = false;
+        return result;
+    }
 
+    // KEEP THIS
+    // Currently "i"
     public bool GetInteractPressed()
     {
         bool result = interactPressed;
@@ -107,6 +124,8 @@ public class InputManager : MonoBehaviour
         return result;
     }
 
+    // KEEP THIS
+    // Currently space and enter keys
     public bool GetSubmitPressed()
     {
         bool result = submitPressed;
@@ -114,6 +133,8 @@ public class InputManager : MonoBehaviour
         return result;
     }
 
+    // Probably also keep? 
+    // Appears to be for players submitting answer
     public void RegisterSubmitPressed()
     {
         submitPressed = false;
