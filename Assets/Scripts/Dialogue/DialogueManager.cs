@@ -13,6 +13,13 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
+
+    // Implement Choices
+    [Header("Choices UI")]
+    [SerializeField] private GameObject[] choices;
+    private TextMeshProUGUI[] choicesText;
+
+
     private Story currentStory;
     public bool dialogueIsPlaying {get; private set; } // public but not editable
     
@@ -40,6 +47,16 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
+
+        // Get text for all choices:
+        choicesText = new TextMeshProUGUI[choices.Length];
+        int index = 0;
+        // For every choice, display it
+        foreach (GameObject choice in choices)
+        {
+            choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+            index++;
+        }
     }
 
     // 
@@ -88,11 +105,41 @@ public class DialogueManager : MonoBehaviour
         if (currentStory.canContinue)
         {
             dialogueText.text = currentStory.Continue();
+            // Show dialogue choices if available
+            DisplayChoices();
         }
         else // empy json file passed in
         {
             StartCoroutine(ExitDialogueMode());
         }
+    }
+
+    // Show player dialogue choices if there are any
+    private void DisplayChoices()
+    {
+        List<Choice> currentChoices = currentStory.currentChoices;
+        
+        // Limit number of choices to 4
+        if (currentChoices.Count > choices.Length)
+        {
+            Debug.LogError("More choices given than UI can support. Number given: " + currentChoices.Count);
+        }
+
+        // Initiate availbable choices
+        int index = 0;
+        foreach(Choice choice in currentChoices)
+        {
+            choices[index].gameObject.SetActive(true);
+            choicesText[index].text = choice.text;
+            index++;
+        }
+
+        // go through remaining choices to hide them
+        for (int i = index; i<choices.Length; i++)
+        {
+            choices[i].gameObject.SetActive(false);
+        }
+
     }
 
 }
