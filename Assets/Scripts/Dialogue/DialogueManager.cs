@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     private Story currentStory;
-    private bool dialogueIsPlaying;
+    public bool dialogueIsPlaying {get; private set; } // public but not editable
     
     // Singleton class—There can only be one
 
@@ -69,8 +69,13 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Exit dialogue
-    private void ExitDialogueMode()
+    private IEnumerator ExitDialogueMode()
     {
+        // Tells script to wait a moment before exiting
+        // Stops players from accidentally skipping
+        // Or other accidental inputs
+        yield return new WaitForSeconds(0.2f);
+
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
@@ -86,7 +91,7 @@ public class DialogueManager : MonoBehaviour
         }
         else // empy json file passed in
         {
-
+            StartCoroutine(ExitDialogueMode());
         }
     }
 

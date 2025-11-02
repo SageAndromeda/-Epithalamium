@@ -26,10 +26,11 @@ public class DialogueTrigger : MonoBehaviour
     // Update code
     private void Update()
     {
-        // If the player is in NPC's collider, show visual cue
-        // Then let them interact with NPC by pressing a button (i currently)
+        // If the player is in NPC's collider and dialogue isn't already plaing,
+        // show visual cue
+        // Then let them interact with NPC by pressing a button ("i" currently)
         // Probably gonna change later to automatically trigger on scene
-        if (playerInRange)
+        if (playerInRange && (!DialogueManager.GetInstance().dialogueIsPlaying))
         {
             // If player is in range and presses interact button, print dialogue
             visualCue.SetActive(true);

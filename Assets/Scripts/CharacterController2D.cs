@@ -36,8 +36,16 @@ public class CharacterController2D : MonoBehaviour
         rb.gravityScale = gravityScale;
     }
 
+    // Where character movement happens
+    // Almost definitely unnecessary.
     private void FixedUpdate()
     {
+        // Prevent player movement while dialogue playing.
+        // Could definitely be useful later
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            return;
+        }
         // Probably don't need any of these three
         UpdateIsGrounded();
 
