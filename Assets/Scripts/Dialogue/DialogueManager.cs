@@ -140,6 +140,25 @@ public class DialogueManager : MonoBehaviour
             choices[i].gameObject.SetActive(false);
         }
 
+        // Call co-routine that selects first option when a choice is presented
+        StartCoroutine(SelectFirstChoice());
+
     }
 
+    // Co-routine to set first selected dialogue choice
+    // Mainly meant for people using arrow keys
+    private IEnumerator SelectFirstChoice()
+    {
+        // New event system needs it to be cleared and then selected on the next frame
+        EventSystem.current.SetSelectedGameObject(null);
+        yield return new WaitForEndOfFrame();
+        EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
+    }
+
+    // Send in player's choice selection
+    public void MakeChoice(int choiceIndex)
+    {
+        currentStory.ChooseChoiceIndex(choiceIndex);
+    }
+ 
 }
