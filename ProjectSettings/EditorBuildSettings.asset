@@ -8,4 +8,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Meet Cute.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/ArcAndSol.unity
+    guid: 7121b8ef62ed8674db465fac329efcdc
+  - enabled: 1
+    path: Assets/Scenes/Business.unity
+    guid: 16b2076ac6106b94f83c9953357842a9
+  - enabled: 1
+    path: Assets/Scenes/Conservatory.unity
+    guid: 5cb55737e914aa1408579413d49ed482
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 73c01a3abeee3844ba78b8d748584420
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 7db58a8b363c1004ea88208fd2aa52e5
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: eaa034835072d404783db6385a3223d0
+  - enabled: 1
+    path: Assets/Scenes/PoetryCenter.unity
+    guid: 200633a28f39ab540960a61e67a842c5
+  - enabled: 1
+    path: Assets/Scenes/Pool.unity
+    guid: 5bbcb79a7fcba0b4190a3232c49a7c89
+  - enabled: 1
+    path: Assets/Scenes/Study Group.unity
+    guid: 6c6e0f7f893a30149a4da817b0c80074
+  - enabled: 1
+    path: Assets/Scenes/Switch Scenes.unity
+    guid: fc7c6bdee9a760741974722ecfd4f42d
+  - enabled: 1
+    path: Assets/Scenes/Thrifting.unity
+    guid: 1e0fa6d0a398f96408eb9779a5bf9ab1
   m_configObjects: {}
